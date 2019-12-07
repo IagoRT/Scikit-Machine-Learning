@@ -1,0 +1,14 @@
+def get_WoE(data, var, target):
+  """
+  Inputs de entrada son el dataset ("data"), la variable a observar ("var") y la variable objetivo ("target").
+  Outputs son los distintos WoE de las variables a observar.
+  """
+    crosstab = pd.crosstab(data[target], data[var])
+    for col in crosstab.columns:
+        if crosstab[col].sum()==0:
+            print(crosstab[col].sum())
+            print("WoE para " + str(col) + " es infinito") #No ocurre en ningún caso.
+        else:
+            ocurrencias=(crosstab[col]).sum()
+            no_ocurrencias=(crosstab[col]==0).sum()
+            print("WoE para " + str(col) + " es " + str(abs(np.log(float(ocurrencias)/float(no_ocurrencias)))))
